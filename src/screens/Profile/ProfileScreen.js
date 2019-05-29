@@ -13,19 +13,29 @@ export default class ProfileScreen extends Component {
 
   viewDetails(details) {
     // navigate to transaction details screen
-    const details_o = {
-      transaction_name: 'Bill payment',
-      transaction_no: 43556477867,
-      date: "10/2/2019",
-      transaction_status: "Success",
-      amount: 3000.00 
-    };
-    
-    this.props.navigation.navigate("Transaction Details", details_o)
+    this.props.navigation.navigate("Transaction Details", details)
     
   }
 
   render() {
+    const details = {
+      type: 'token',
+      transaction_name: 'Token purchase',
+      transaction_no: 43556477867,
+      date: "21-02-2019",
+      transaction_status: "Success",
+      token: '2324 4343 8561 7889',
+      amount: 3000.00 
+    };
+
+    const details_o = {
+      transaction_name: 'Bill payment',
+      transaction_no: 43556477867,
+      date: "03-05-2018",
+      transaction_status: "Success",
+      amount: 3000.00 
+    };
+
     return (
       <Container>
         <Content>
@@ -63,8 +73,8 @@ export default class ProfileScreen extends Component {
                 <Left>
                   <Text style={styles.acitivity_name}>Bill payment</Text>
                 </Left>
-                <Right> 
-                  <Button transparent onPress={() => this.viewDetails()}>
+                <Right>
+                  <Button transparent onPress={() => this.viewDetails(details_o)}>
                     <Text style={styles.details_btn}>Details</Text>
                   </Button>
                 </Right>
@@ -75,7 +85,7 @@ export default class ProfileScreen extends Component {
                   <Text style={styles.acitivity_name}>Bill payment</Text>
                 </Left>
                 <Right> 
-                  <Button transparent onPress={(details) => this.viewDetails()}>
+                  <Button transparent onPress={() => this.viewDetails(details_o)}>
                     <Text style={styles.details_btn}>Details</Text>
                   </Button>
                 </Right>
@@ -86,7 +96,7 @@ export default class ProfileScreen extends Component {
                   <Text style={styles.acitivity_name}>Token purchase</Text>
                 </Left>
                 <Right>
-                  <Button transparent onPress={() => this.viewDetails()}>
+                  <Button transparent onPress={() => this.viewDetails(details)}>
                     <Text style={styles.details_btn}>Details</Text>
                   </Button>
                 </Right>
@@ -97,7 +107,7 @@ export default class ProfileScreen extends Component {
                   <Text style={styles.acitivity_name}>Token purchase</Text>
                 </Left>
                 <Right>
-                  <Button transparent onPress={() => this.viewDetails()}>
+                  <Button transparent onPress={() => this.viewDetails(details)}>
                     <Text style={styles.details_btn}>Details</Text>
                   </Button>
                 </Right>
@@ -108,7 +118,7 @@ export default class ProfileScreen extends Component {
                   <Text style={styles.acitivity_name}>Token purchase</Text>
                 </Left>
                 <Right>
-                  <Button transparent onPress={() => this.viewDetails()}>
+                  <Button transparent onPress={() => this.viewDetails(details)}>
                     <Text style={styles.details_btn}>Details</Text>
                   </Button>
                 </Right>

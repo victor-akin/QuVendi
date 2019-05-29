@@ -2,7 +2,11 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { Container, Content, Form, Item, Input, Label, Icon } from 'native-base';
 
-export default class ManageAccount extends Component {
+// redux imports
+import { connect } from 'react-redux';
+
+
+class ManageAccount extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -76,7 +80,10 @@ export default class ManageAccount extends Component {
                     
                     <Item success floatingLabel>
                         <Label style={styles.label}>meter number</Label>
-                        <Input onChange={ (event) => this.handleChange(event, 'meter_number')} />
+                        <Input 
+                            onChange={ (event) => this.handleChange(event, 'meter_number')} 
+                            keyboardType="numeric"    
+                        />
                         { this.state.meter_number_isValid ? <Icon name='ios-checkmark-circle' style={styles.ok}/> : <Icon name='ios-brush' style={styles.edit}/>}
                     </Item>
 
@@ -122,4 +129,11 @@ const styles = StyleSheet.create({
     }
 });
 
-// omotayo hotel
+
+const mapStateToProps = (state) => {
+    const txt = state.testRedux;
+    return {txt};
+};
+
+export default connect(mapStateToProps)(ManageAccount)
+

@@ -32,14 +32,13 @@ export default class BuyToken extends Component {
 
   handleSubmit() {
     // check all valid fields and submit
-    if ( !this.state.amount_isValid ) return;
-
+    if ( !this.state.token_amount_isValid ) return;
 
     this.props.navigation.navigate(
         'ConfirmScreen',
         {
-            message: 'Payment successful', 
-            nextScreen: 'DashboardTabNavigator'
+            message: 'Payment successful',
+            nextScreen: 'Transactions'
         }
     )
   }
@@ -52,8 +51,11 @@ export default class BuyToken extends Component {
 
                     <Item success floatingLabel>
                         <Label style={styles.label}>amount(₦)</Label>
-                        <Input onChange={ (event) => this.handleChange(event, 'token_amount')}/>
-                        { this.state.amount_isValid ? <Icon name='ios-checkmark-circle' style={styles.ok}/> : <Icon name='ios-brush' style={styles.edit}/>}
+                        <Input 
+                            onChange={ (event) => this.handleChange(event, 'token_amount')}
+                            keyboardType="numeric"
+                        />
+                        { this.state.token_amount_isValid ? <Icon name='ios-checkmark-circle' style={styles.ok}/> : <Icon name='ios-brush' style={styles.edit}/>}
                     </Item>
 
                     <TouchableOpacity

@@ -1,2 +1,2 @@
 // export const ACTION_NAME = 'ACTION_STRING_VALUE'
-export const ADD_ARTICLE = 'ADD_ARTICLE'
+export const CHANGE_TEXT = "CHANGE_TEXT";

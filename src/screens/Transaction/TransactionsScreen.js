@@ -19,16 +19,19 @@ export default class TransactionsScreen extends Component {
   render() {
 
     const details = {
+      type: 'token',
       transaction_name: 'Token purchase',
       transaction_no: 43556477867,
-      date: "10/2/2019",
+      date: "21-02-2019",
       transaction_status: "Success",
+      token: '2324 4343 8561 7889',
       amount: 3000.00 
     };
     const details_2 = {
+      type: 'bill',
       transaction_name: 'Bill payment',
-      transaction_no: 43556477867,
-      date: "10/2/2019",
+      transaction_no: 43556417867,
+      date: "29-04-2019",
       transaction_status: "Success",
       amount: 3000.00 
     };
@@ -44,84 +47,24 @@ export default class TransactionsScreen extends Component {
               
               <ListItem first>
                 <Left>
-                  <Text style={styles.acitivity_name}>Bill payment</Text>
+                  <View style={styles.title_date}>
+                    <Text style={styles.acitivity_name}>Bill payment</Text>
+                    <Text style={styles.date}>29-04-2019</Text>
+                  </View>
                 </Left>
-                <Right> 
+                <Right>
                   <Button transparent onPress={() => this.viewDetails(details_2)}>
                     <Text style={styles.details_btn}>Details</Text>
                   </Button>
                 </Right>
               </ListItem>
-              
-              <ListItem button>
+             
+              <ListItem>
                 <Left>
-                  <Text style={styles.acitivity_name}>Bill payment</Text>
-                </Left>
-                <Right> 
-                  <Button transparent onPress={() => this.viewDetails(details_2)}>
-                    <Text style={styles.details_btn}>Details</Text>
-                  </Button>
-                </Right>
-              </ListItem>
-              
-              <ListItem button>
-                <Left>
-                  <Text style={styles.acitivity_name}>Token purchase</Text>
-                </Left>
-                <Right>
-                  <Button transparent onPress={() => this.viewDetails(details)}>
-                    <Text style={styles.details_btn}>Details</Text>
-                  </Button>
-                </Right>
-              </ListItem>
-
-              <ListItem button>
-                <Left>
-                  <Text style={styles.acitivity_name}>Token purchase</Text>
-                </Left>
-                <Right>
-                  <Button transparent onPress={() => this.viewDetails(details)}>
-                    <Text style={styles.details_btn}>Details</Text>
-                  </Button>
-                </Right>
-              </ListItem>
-
-              <ListItem button>
-                <Left>
-                  <Text style={styles.acitivity_name}>Token purchase</Text>
-                </Left>
-                <Right>
-                  <Button transparent onPress={() => this.viewDetails(details)}>
-                    <Text style={styles.details_btn}>Details</Text>
-                  </Button>
-                </Right>
-              </ListItem>
-
-              <ListItem button>
-                <Left>
-                  <Text style={styles.acitivity_name}>Token purchase</Text>
-                </Left>
-                <Right>
-                  <Button transparent onPress={() => this.viewDetails(details)}>
-                    <Text style={styles.details_btn}>Details</Text>
-                  </Button>
-                </Right>
-              </ListItem>
-
-              <ListItem button>
-                <Left>
-                  <Text style={styles.acitivity_name}>Token purchase</Text>
-                </Left>
-                <Right>
-                  <Button transparent onPress={() => this.viewDetails(details)}>
-                    <Text style={styles.details_btn}>Details</Text>
-                  </Button>
-                </Right>
-              </ListItem>
-
-              <ListItem button>
-                <Left>
-                  <Text style={styles.acitivity_name}>Bill payment</Text>
+                  <View style={styles.title_date}>
+                    <Text style={styles.acitivity_name}>Bill payment</Text>
+                    <Text style={styles.date}>29-04-2019</Text>
+                  </View>
                 </Left>
                 <Right>
                   <Button transparent onPress={() => this.viewDetails(details_2)}>
@@ -130,9 +73,12 @@ export default class TransactionsScreen extends Component {
                 </Right>
               </ListItem>
 
-              <ListItem button>
+              <ListItem>
                 <Left>
-                  <Text style={styles.acitivity_name}>Bill payment</Text>
+                  <View style={styles.title_date}>
+                    <Text style={styles.acitivity_name}>Bill payment</Text>
+                    <Text style={styles.date}>29-04-2019</Text>
+                  </View>
                 </Left>
                 <Right>
                   <Button transparent onPress={() => this.viewDetails(details_2)}>
@@ -141,9 +87,12 @@ export default class TransactionsScreen extends Component {
                 </Right>
               </ListItem>
 
-              <ListItem button>
+              <ListItem>
                 <Left>
-                  <Text style={styles.acitivity_name}>Token purchase</Text>
+                  <View style={styles.title_date}>
+                    <Text style={styles.acitivity_name}>Token purchase</Text>
+                    <Text style={styles.date}>21-02-2019</Text>
+                  </View>
                 </Left>
                 <Right>
                   <Button transparent onPress={() => this.viewDetails(details)}>
@@ -152,9 +101,26 @@ export default class TransactionsScreen extends Component {
                 </Right>
               </ListItem>
 
-              <ListItem button>
+              <ListItem>
                 <Left>
-                  <Text style={styles.acitivity_name}>Bill payment</Text>
+                  <View style={styles.title_date}>
+                    <Text style={styles.acitivity_name}>Token purchase</Text>
+                    <Text style={styles.date}>21-02-2019</Text>
+                  </View>
+                </Left>
+                <Right>
+                  <Button transparent onPress={() => this.viewDetails(details)}>
+                    <Text style={styles.details_btn}>Details</Text>
+                  </Button>
+                </Right>
+              </ListItem>
+
+              <ListItem>
+                <Left>
+                  <View style={styles.title_date}>
+                    <Text style={styles.acitivity_name}>Bill payment</Text>
+                    <Text style={styles.date}>29-04-2019</Text>
+                  </View>
                 </Left>
                 <Right>
                   <Button transparent onPress={() => this.viewDetails(details_2)}>
@@ -163,12 +129,29 @@ export default class TransactionsScreen extends Component {
                 </Right>
               </ListItem>
 
-              <ListItem button>
+              <ListItem>
                 <Left>
-                  <Text style={styles.acitivity_name}>Token purchase</Text>
+                  <View style={styles.title_date}>
+                    <Text style={styles.acitivity_name}>Token purchase</Text>
+                    <Text style={styles.date}>21-02-2019</Text>
+                  </View>
                 </Left>
                 <Right>
                   <Button transparent onPress={() => this.viewDetails(details)}>
+                    <Text style={styles.details_btn}>Details</Text>
+                  </Button>
+                </Right>
+              </ListItem>
+
+              <ListItem>
+                <Left>
+                  <View style={styles.title_date}>
+                    <Text style={styles.acitivity_name}>Bill payment</Text>
+                    <Text style={styles.date}>29-04-2019</Text>
+                  </View>
+                </Left>
+                <Right>
+                  <Button transparent onPress={() => this.viewDetails(details_2)}>
                     <Text style={styles.details_btn}>Details</Text>
                   </Button>
                 </Right>
@@ -191,11 +174,23 @@ const styles = StyleSheet.create({
   },
   acitivity_name: {
     color: '#979797',
-    fontSize: 14
+    fontSize: 16,
+    alignSelf: 'flex-start',
   },
   details_btn: {
     fontSize: 12, 
     color: '#1EB574'
+  },
+  title_date: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+  },
+  date: {
+    alignSelf: 'flex-start',
+    fontSize: 10,
+    color: 'grey'
   }
 });
 

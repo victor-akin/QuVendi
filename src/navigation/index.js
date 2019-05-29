@@ -1,10 +1,12 @@
 import React from "react";
+import { StyleSheet, ScrollView, View, Text } from "react-native";
 import { 
     createSwitchNavigator, 
     createStackNavigator, 
     createAppContainer,
     createBottomTabNavigator,
-    createDrawerNavigator 
+    createDrawerNavigator,
+    DrawerItems, SafeAreaView
 } from "react-navigation";
 import { Icon } from "native-base";
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -16,7 +18,11 @@ import LoginSignin from '../components/LoginSignin';
 import LoginScreen from '../screens/LoginScreen';
 import SignupScreen from '../screens/SignupScreen';
 import ConfirmScreen from '../screens/ConfirmScreen';
-import SettingsScreen from '../screens/SettingsScreen';
+// drawer screen imports
+import NotificationsScreen from '../screens/Drawer/NotificationsScreen';
+import ContactUsScreen from '../screens/Drawer/ContactUsScreen';
+import NearbyEDCScreen from '../screens/Drawer/NearbyEDCScreen';
+import SettingsScreen from '../screens/Drawer/SettingsScreen';
 
 import WalletScreen from '../screens/Wallet/WalletScreen';
 
@@ -24,6 +30,9 @@ import WalletScreen from '../screens/Wallet/WalletScreen';
 import HomeStack from "./HomeStack";
 import ProfileStack from "./ProfileStack";
 import TransactionStack from "./TransactionStack";
+
+// import custom drawer 
+import CustomDrawer from "../components/CustomDrawer";
 
 // tab navigator for all bottom tab navigations
 const DashboardTabNavigator = createBottomTabNavigator(
@@ -113,11 +122,40 @@ const DashboardStackNavigator = createStackNavigator(
     }
 );
 
+
 // create the drawer navigator for app navigation
 const AppDrawerNavigator = createDrawerNavigator(
     {
         Home: DashboardStackNavigator,
-        Settings: SettingsScreen
+        Notifications: NotificationsScreen,
+        "Contact us": ContactUsScreen,
+        // "Nearby EDC": NearbyEDCScreen,
+    },
+    {
+        defaultNavigationOptions: ({navigation}) => {
+            return {
+                drawerIcon: ({tintColor}) => {
+                    const { routeName } = navigation.state;
+                    let DI
+                    if(routeName === 'Home'){
+                        DI = <Ionicons name='ios-home' style={{fontSize: 20, color: tintColor}} />
+                    } else if(routeName === 'Notifications') {
+                        DI = <Ionicons name='ios-notifications' style={{fontSize: 20, color: tintColor}} />
+                    } else if(routeName === 'Nearby EDC') {
+                        DI = <Ionicons name='ios-pulse' style={{fontSize: 20, color: tintColor}} />
+                    } else if(routeName === 'Contact us') {
+                        DI = <Ionicons name='ios-business' style={{fontSize: 20, color: tintColor}} />
+                    }
+                    return DI
+                }
+            }
+        },
+        contentComponent: CustomDrawer,
+        contentOptions: {
+            activeTintColor: '#0F9D58',
+            inactiveTintColor: 'grey'
+        },
+        // title: 'asdasd'
     }
 );
 
@@ -136,11 +174,11 @@ const AppNavigator = createSwitchNavigator(
     LoginSignin: LoginSignin,
     initLoading: AppDashboardNavigator,
     // quick load screen
-    Home: DashboardStackNavigator,
+    // Home: DashboardStackNavigator,
 },
 {
-    // initialRouteName: "LoadingScreen"
-    initialRouteName: "Home"
+    initialRouteName: "LoadingScreen"
+    // initialRouteName: "Home"
 }
 );
 

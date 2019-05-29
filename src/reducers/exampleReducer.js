@@ -1,16 +1,15 @@
-import ADD_ARTICLE from '../actions/types';
+import { CHANGE_TEXT } from '../actions/types';
+
 
 const initialState = {
-    articles: []
+    testRedux: 'inside redux'
 }
 
 function exampleReducer (state = initialState, action){
     
-    if (action.type === ADD_ARTICLE) {
-        // state.articles.push(action.payload);
-        return  Object.assign({}, state, {
-            articles: state.articles.concat(action.payload)
-        });
+    switch(action.type) {
+        case CHANGE_TEXT:
+            return Object.assign({}, state, {testRedux: action.data});
     }
     return state;
 }

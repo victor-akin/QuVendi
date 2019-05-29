@@ -1,6 +1,10 @@
-import { ADD_ARTICLE } from './types';
+import { CHANGE_TEXT } from './types'
 
 
-export function addArticle(payload) {
-    return { type: ADD_ARTICLE, payload: payload }
-  };
+export function changeText () {
+  return {
+    type: CHANGE_TEXT,
+    data: 'change test data'
+  }
+}
+

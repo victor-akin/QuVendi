@@ -3,13 +3,31 @@ import { StyleSheet, Dimensions, ScrollView, View, Text } from 'react-native';
 import { BarChart } from 'react-native-chart-kit';
 import { Container, Card, CardItem, Body } from 'native-base';
 
+// redux imports
+import { connect } from 'react-redux';
+import { changeText } from "../../actions/exampleAction";
+
 const screenWidth = (Dimensions.get('window').width)*1.5;
 
-export default class DashboardScreen extends Component {
+class DashboardScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      
     };
+
+    this.updateStore = this.updateStore.bind(this);
+  }
+
+  componentDidMount() {
+    // this.props.navigation.openDrawer();
+    // this.props.navigation.navigate("Nearby EDC");
+  }
+
+  updateStore() {
+    // this.props.testDispatch()
+    // changeText()
+    // alert(this.props.testText)
   }
 
   render() {
@@ -102,7 +120,11 @@ export default class DashboardScreen extends Component {
               <Text>Manage Account</Text>
             </CardItem>
           </Card>
-
+         
+          {/* <Text onPress={() => this.props.changeTxt()}>
+            {this.props.testRdx}
+          </Text> */}
+        
         </View>
       </View>
       </ScrollView>
@@ -140,3 +162,23 @@ const styles = StyleSheet.create(
     }
   }
 );
+
+
+const mapStateToProps = (state) => {
+  const { testRedux } = state.testRedux
+  return { testRdx: testRedux };
+};
+
+const actionCreators = {
+  changeTxt: changeText
+}
+
+// const mapDispatchToProps = (dispatch) => ({
+//   changeTxt: () => dispatch({type:"CHANGE_TEXT", data:"changing the text"})
+// })
+
+
+
+export default connect(mapStateToProps, actionCreators)(DashboardScreen);
+// export default connect(mapStateToProps, mapDispatchToProps)(DashboardScreen);
+

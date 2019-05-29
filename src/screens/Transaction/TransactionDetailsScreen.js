@@ -13,7 +13,7 @@ export default class TransactionDetailsScreen extends Component {
   render() {
     return (
       <View>
-        <Text style={styles.detail_heading}> Transaction name </Text>
+        <Text style={styles.detail_heading}> {this.props.navigation.getParam('transaction_name')} </Text>
         <View>
             <List>
                 <ListItem first>
@@ -39,6 +39,16 @@ export default class TransactionDetailsScreen extends Component {
                     <Text style={styles.detail_value}>₦{this.props.navigation.getParam('amount')}</Text>
                 </ListItem>
             </List>
+            {
+                (this.props.navigation.getParam('type') === 'token') ?
+                <List>
+                    <ListItem>
+                        <Text style={styles.detail_title}>Token</Text>
+                        <Text style={styles.detail_value}>{this.props.navigation.getParam('token')}</Text>
+                    </ListItem>
+                </List> :
+                <Text></Text>
+            }
         </View>
       </View>
     );
@@ -49,10 +59,10 @@ export default class TransactionDetailsScreen extends Component {
 const styles = StyleSheet.create({
     detail_heading: {
         color: '#979797',
-        paddingTop: 5,
-        paddingLeft: 10,
+        paddingTop: 10,
+        paddingLeft: 12,
         fontSize: 20,
-        marginBottom: 20
+        marginBottom: 8
     },
     detail_title: {
         color: '#979797',

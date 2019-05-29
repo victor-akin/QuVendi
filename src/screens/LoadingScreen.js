@@ -12,7 +12,8 @@ class LoadingScreen extends Component {
 
   componentDidMount() {
     this.props.setTimeout(() => {
-        this.props.navigation.navigate('LoginSignin')
+        // this.props.navigation.navigate('LoginSignin')
+        this.props.navigation.navigate('Manage Account')
     }, 500)
   }
 

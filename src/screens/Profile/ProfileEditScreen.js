@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Image, TouchableOpacity } from 'react-native';
 import { Container, Content, Text, Form, Item, Input, Label, Icon } from 'native-base';
+import PhotoUpload from 'react-native-photo-upload'
 
 export default class ProfileEditScreen extends Component {
   constructor(props) {
@@ -18,7 +19,7 @@ export default class ProfileEditScreen extends Component {
     const valid = (event.nativeEvent.text === '') ? false : true;
     this.setState(
         {
-            field: event.nativeEvent.text, 
+            [field]: event.nativeEvent.text, 
             [`${field}_isValid`]: valid
         }
     );
@@ -45,10 +46,12 @@ export default class ProfileEditScreen extends Component {
       <Container>
         <Content>
             <View>
+                <PhotoUpload>
                 <Image
                     style={styles.img}
                     source={require('../../assets/imgs/profile_2.png')}
                 />
+                </PhotoUpload>
             </View>
             <Form>
 

@@ -6,14 +6,31 @@ export default class LoginScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-        rememberMe: true
+        rememberMe: true,
+        loginName: '',
+        password: ''
+
     };
 
-    this.handleRememberMe = this.handleRememberMe.bind(this)
+    this.handleRememberMe = this.handleRememberMe.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   handleRememberMe() {
       this.setState(previousState => ({rememberMe: !previousState.rememberMe}))
+  }
+
+  handleSubmit() {
+    if( (this.state.loginName === 'user') && (this.state.password === 'quvendi') ) {
+        this.props.navigation.navigate('DashboardTabNavigator');
+    }
+  }
+
+  handleChange(event, field) {
+      this.setState({
+          [`${field}`]: event.nativeEvent.text
+      });
   }
 
   render() {
@@ -29,13 +46,11 @@ export default class LoginScreen extends Component {
                     
                     <Item success floatingLabel>
                         <Label style={styles.label}>username, email or phone no</Label>
-                        <Input />
-                        <Icon name='checkmark-circle' color='#3AD29F'/>
+                        <Input onChange={(event) => this.handleChange(event, 'loginName')} />
                     </Item>
                     <Item success floatingLabel>
                         <Label style={styles.label}>password</Label>
-                        <Input />
-                        <Icon name='checkmark-circle' color='#3AD29F'/>
+                        <Input onChange={(event) => this.handleChange(event, 'password')} />
                     </Item>
                     <View style={styles.rem_forgot}>
                         <View style={styles.rememberMe_text}>
@@ -63,7 +78,7 @@ export default class LoginScreen extends Component {
                     <TouchableOpacity
                         style={styles.buttonStyle}
                         activeOpacity = { .5 }
-                        onPress={() => this.props.navigation.navigate('DashboardTabNavigator')}
+                        onPress={() => this.handleSubmit()}
                     >
                         <Text style={{color:'white'}}> LOGIN </Text>
                     </TouchableOpacity>

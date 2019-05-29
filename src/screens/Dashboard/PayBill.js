@@ -7,7 +7,7 @@ export default class PayBill extends Component {
     super(props);
     this.state = {
       bill_amount: '',
-      amount_isValid: false,
+      bill_amount_isValid: false,
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -20,24 +20,25 @@ export default class PayBill extends Component {
     const amount = parseFloat(event.nativeEvent.text);
 
     this.setState(
-        {
-            field: amount, 
-            [`${field}_isValid`]: valid
-        }
+      {
+        field: amount, 
+        [`${field}_isValid`]: valid
+      }
     );
 
   }
 
   handleSubmit() {
     // check all valid fields and submit
-    if ( !this.state.amount_isValid ) return;
+    console.log(this.state)
+    if ( !this.state.bill_amount_isValid ) return;
 
 
     this.props.navigation.navigate(
         'ConfirmScreen',
         {
             message: 'Payment successful', 
-            nextScreen: 'DashboardTabNavigator'
+            nextScreen: 'Transactions'
         }
     )
   }
@@ -51,8 +52,11 @@ export default class PayBill extends Component {
 
               <Item success floatingLabel>
                   <Label style={styles.label}>amount(₦)</Label>
-                  <Input onChange={ (event) => this.handleChange(event, 'bill_amount')}/>
-                  { this.state.amount_isValid ? <Icon name='ios-checkmark-circle' style={styles.ok}/> : <Icon name='ios-brush' style={styles.edit}/>}
+                  <Input 
+                    onChange={ (event) => this.handleChange(event, 'bill_amount')} 
+                    keyboardType="numeric"
+                  />
+                  { this.state.bill_amount_isValid ? <Icon name='ios-checkmark-circle' style={styles.ok}/> : <Icon name='ios-brush' style={styles.edit}/>}
               </Item>
 
               <TouchableOpacity

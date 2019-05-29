@@ -1,20 +1,14 @@
 
-import { createStore, combineReducers } from 'redux';
+import { createStore } from 'redux';
 
 // import reducers
+import rootReducer from './reducers';
 
-//-- import all reducers at once
-// import rootReducer from './reducers';
 
-//-- import reducers one at time
-import exampleReducer from './reducers/exampleReducer';
+const initialState = {
+    
+};
 
-const store = createStore(exampleReducer);
-
-// combine reducers
-// const allReducers = combineReducers({
-//   places: placeReducer
-// });
-
+const store = createStore(rootReducer);
 
 export default store;
