@@ -74,8 +74,8 @@ export default class ProfileScreen extends Component {
                   <Text style={styles.acitivity_name}>Bill payment</Text>
                 </Left>
                 <Right>
-                  <Button transparent onPress={() => this.viewDetails(details_o)}>
-                    <Text style={styles.details_btn}>Details</Text>
+                  <Button style={styles.btn_detail} transparent onPress={() => this.viewDetails(details_o)}>
+                    <Text style={styles.detail_btn_text}>Details</Text>
                   </Button>
                 </Right>
               </ListItem>
@@ -85,8 +85,8 @@ export default class ProfileScreen extends Component {
                   <Text style={styles.acitivity_name}>Bill payment</Text>
                 </Left>
                 <Right> 
-                  <Button transparent onPress={() => this.viewDetails(details_o)}>
-                    <Text style={styles.details_btn}>Details</Text>
+                  <Button style={styles.btn_detail} transparent onPress={() => this.viewDetails(details_o)}>
+                    <Text style={styles.detail_btn_text}>Details</Text>
                   </Button>
                 </Right>
               </ListItem>
@@ -96,8 +96,8 @@ export default class ProfileScreen extends Component {
                   <Text style={styles.acitivity_name}>Token purchase</Text>
                 </Left>
                 <Right>
-                  <Button transparent onPress={() => this.viewDetails(details)}>
-                    <Text style={styles.details_btn}>Details</Text>
+                  <Button style={styles.btn_detail} transparent onPress={() => this.viewDetails(details)}>
+                    <Text style={styles.detail_btn_text}>Details</Text>
                   </Button>
                 </Right>
               </ListItem>
@@ -107,8 +107,8 @@ export default class ProfileScreen extends Component {
                   <Text style={styles.acitivity_name}>Token purchase</Text>
                 </Left>
                 <Right>
-                  <Button transparent onPress={() => this.viewDetails(details)}>
-                    <Text style={styles.details_btn}>Details</Text>
+                  <Button style={styles.btn_detail} transparent onPress={() => this.viewDetails(details)}>
+                    <Text style={styles.detail_btn_text}>Details</Text>
                   </Button>
                 </Right>
               </ListItem>
@@ -118,8 +118,8 @@ export default class ProfileScreen extends Component {
                   <Text style={styles.acitivity_name}>Token purchase</Text>
                 </Left>
                 <Right>
-                  <Button transparent onPress={() => this.viewDetails(details)}>
-                    <Text style={styles.details_btn}>Details</Text>
+                  <Button style={styles.btn_detail} transparent onPress={() => this.viewDetails(details)}>
+                    <Text style={styles.detail_btn_text}>Details</Text>
                   </Button>
                 </Right>
               </ListItem>
@@ -186,9 +186,19 @@ const styles = StyleSheet.create({
     color: '#979797',
     fontSize: 14
   },
-  details_btn: {
-    fontSize: 12, 
+  detail_btn_text: {
+    fontSize: 10, 
     color: '#1EB574'
+  },
+  btn_detail: {
+    // borderColor: 'black',
+    // borderWidth: 1,
+    width: 100,
+    paddingRight: 0,
+    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'flex-end',
+    justifyContent: 'center'
   }
 });
 

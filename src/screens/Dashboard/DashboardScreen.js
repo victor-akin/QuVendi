@@ -32,7 +32,7 @@ class DashboardScreen extends Component {
 
   render() {
     return (
-      <ScrollView>
+      <ScrollView style={{paddingLeft: 5, paddingRight: 5}}>
       <View style={styles.dashboardContainer}>
         <Text style={styles.chartLabel}>
           Overview of bills paid
@@ -43,18 +43,18 @@ class DashboardScreen extends Component {
             labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun','Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
             datasets: [{
               data: [
-                Math.random() * 100,
-                Math.random() * 100,
-                Math.random() * 100,
-                Math.random() * 100,
-                Math.random() * 100,
-                Math.random() * 100,
-                Math.random() * 100,
-                Math.random() * 100,
-                Math.random() * 100,
-                Math.random() * 100,
-                Math.random() * 100,
-                Math.random() * 100
+                (Math.random() * 100) + 1000,
+                (Math.random() * 100) + 3000,
+                (Math.random() * 100) + 1000,
+                (Math.random() * 100) + 3000,
+                (Math.random() * 100) + 2000,
+                (Math.random() * 100) + 500,
+                (Math.random() * 100) + 900,
+                (Math.random() * 100) + 4600,
+                (Math.random() * 100) + 6000,
+                (Math.random() * 100) + 7000,
+                (Math.random() * 100) + 8000,
+                (Math.random() * 100) + 4000
               ]
             }]
           }}
@@ -141,7 +141,7 @@ const styles = StyleSheet.create(
       marginTop: 10,
     },
     chartLabel: {
-      paddingLeft: 10,
+      paddingLeft: 0,
       fontSize: 20,
       color: '#65666C'
     },
@@ -150,10 +150,13 @@ const styles = StyleSheet.create(
       flexDirection: 'row',
       justifyContent: 'center',
       alignItems: 'center',
+      height: 200,
+      paddingBottom: 30,
     },
     cardStyle: {
       flex: 1,
-      borderRadius: 10
+      borderRadius: 10,
+      height: 130,
     },
     textTip: {
       fontSize: 12,

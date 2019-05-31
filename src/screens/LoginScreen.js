@@ -22,8 +22,11 @@ export default class LoginScreen extends Component {
   }
 
   handleSubmit() {
-    if( (this.state.loginName === 'user') && (this.state.password === 'quvendi') ) {
+    if( (this.state.loginName.toLowerCase() == 'username') && (this.state.password.toLowerCase() == 'password') ) {
         this.props.navigation.navigate('DashboardTabNavigator');
+    }
+    else {
+        alert("Invalid login details")
     }
   }
 
@@ -58,6 +61,7 @@ export default class LoginScreen extends Component {
                                 color={"grey"}
                                 selectedColor={"#3AD29F"}
                                 selected={this.state.rememberMe}
+                                onPress={this.handleRememberMe}
                             />
                             <Text 
                                 style={{paddingLeft: 7}} 
@@ -113,9 +117,9 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         padding: 20,
         paddingHorizontal: 20,
-        borderRadius: 30,
+        borderRadius: 10,
         marginTop: 50,
-        backgroundColor: '#1EB574'
+        backgroundColor: '#1EB574',
     },
     logo_name:{
         color: 'grey',
