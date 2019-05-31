@@ -24,7 +24,7 @@ class ContactUsScreen extends Component {
                         </CardItem>
                         <CardItem>
                             <Body style={styles.body}>
-                                <Text style={styles.detail}>0908 432 0000</Text>
+                                <Text style={styles.detail}>0908 000 0000</Text>
                                 <Icon name="ios-call" style={{fontSize: 20, color: '#0F9D58', paddingLeft: 10}}/>
                             </Body>
                         </CardItem>

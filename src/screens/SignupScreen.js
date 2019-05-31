@@ -55,13 +55,15 @@ export default class SignupScren extends Component {
         this.state.password_isValid && this.state.phone_no_isValid ){
           return true;
     } 
-    console.log(this.state)
     return false;
   }
 
   handleSubmit() {
-    if(this.allFieldsAreValid())
-    this.props.navigation.navigate('ConfirmScreen');
+    if(this.allFieldsAreValid()) {
+      this.props.navigation.navigate('ConfirmScreen');
+    } else{
+      alert("Wrong details")
+    }
   }
 
   render() {
@@ -113,9 +115,7 @@ export default class SignupScren extends Component {
             <Item success floatingLabel>
               <Label style={styles.label}>confirm password</Label>
               <Input onChange={(event) => this.handleChange(event, 'confirm_password')}/>
-              {/* <Icon name='checkmark-circle' color='#3AD29F' style={{fontSize: 20}}/> */}
-              {/* { this.state.username_isValid ? <Icon name='ios-checkmark-circle' style={styles.ok}/> : <Icon name='ios-brush' style={styles.edit}/>} */}
-
+              
             </Item>
 
             <Text style={styles.conditions}>
@@ -145,11 +145,12 @@ const styles = StyleSheet.create({
   buttonStyle: {
       marginLeft: 10,
       marginRight: 5,
+      marginTop: 30,
+      marginBottom: 50,
       alignItems: 'center',
       padding: 20,
       paddingHorizontal: 20,
-      borderRadius: 30,
-      marginTop: 30,
+      borderRadius: 10,
       backgroundColor: '#1EB574'
   },
   conditions:{

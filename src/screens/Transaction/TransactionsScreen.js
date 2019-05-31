@@ -53,8 +53,8 @@ export default class TransactionsScreen extends Component {
                   </View>
                 </Left>
                 <Right>
-                  <Button transparent onPress={() => this.viewDetails(details_2)}>
-                    <Text style={styles.details_btn}>Details</Text>
+                  <Button style={styles.btn_detail} transparent onPress={() => this.viewDetails(details_2)}>
+                    <Text style={styles.detail_btn_text}>Details</Text>
                   </Button>
                 </Right>
               </ListItem>
@@ -67,8 +67,8 @@ export default class TransactionsScreen extends Component {
                   </View>
                 </Left>
                 <Right>
-                  <Button transparent onPress={() => this.viewDetails(details_2)}>
-                    <Text style={styles.details_btn}>Details</Text>
+                  <Button style={styles.btn_detail} transparent onPress={() => this.viewDetails(details_2)}>
+                    <Text style={styles.detail_btn_text}>Details</Text>
                   </Button>
                 </Right>
               </ListItem>
@@ -81,8 +81,8 @@ export default class TransactionsScreen extends Component {
                   </View>
                 </Left>
                 <Right>
-                  <Button transparent onPress={() => this.viewDetails(details_2)}>
-                    <Text style={styles.details_btn}>Details</Text>
+                  <Button style={styles.btn_detail} transparent onPress={() => this.viewDetails(details_2)}>
+                    <Text style={styles.detail_btn_text}>Details</Text>
                   </Button>
                 </Right>
               </ListItem>
@@ -95,8 +95,8 @@ export default class TransactionsScreen extends Component {
                   </View>
                 </Left>
                 <Right>
-                  <Button transparent onPress={() => this.viewDetails(details)}>
-                    <Text style={styles.details_btn}>Details</Text>
+                  <Button style={styles.btn_detail} transparent onPress={() => this.viewDetails(details)}>
+                    <Text style={styles.detail_btn_text}>Details</Text>
                   </Button>
                 </Right>
               </ListItem>
@@ -109,8 +109,8 @@ export default class TransactionsScreen extends Component {
                   </View>
                 </Left>
                 <Right>
-                  <Button transparent onPress={() => this.viewDetails(details)}>
-                    <Text style={styles.details_btn}>Details</Text>
+                  <Button style={styles.btn_detail} transparent onPress={() => this.viewDetails(details)}>
+                    <Text style={styles.detail_btn_text}>Details</Text>
                   </Button>
                 </Right>
               </ListItem>
@@ -123,8 +123,8 @@ export default class TransactionsScreen extends Component {
                   </View>
                 </Left>
                 <Right>
-                  <Button transparent onPress={() => this.viewDetails(details_2)}>
-                    <Text style={styles.details_btn}>Details</Text>
+                  <Button style={styles.btn_detail} transparent onPress={() => this.viewDetails(details_2)}>
+                    <Text style={styles.detail_btn_text}>Details</Text>
                   </Button>
                 </Right>
               </ListItem>
@@ -137,8 +137,8 @@ export default class TransactionsScreen extends Component {
                   </View>
                 </Left>
                 <Right>
-                  <Button transparent onPress={() => this.viewDetails(details)}>
-                    <Text style={styles.details_btn}>Details</Text>
+                  <Button style={styles.btn_detail} transparent onPress={() => this.viewDetails(details)}>
+                    <Text style={styles.detail_btn_text}>Details</Text>
                   </Button>
                 </Right>
               </ListItem>
@@ -151,8 +151,8 @@ export default class TransactionsScreen extends Component {
                   </View>
                 </Left>
                 <Right>
-                  <Button transparent onPress={() => this.viewDetails(details_2)}>
-                    <Text style={styles.details_btn}>Details</Text>
+                  <Button style={styles.btn_detail} transparent onPress={() => this.viewDetails(details_2)}>
+                    <Text style={styles.detail_btn_text}>Details</Text>
                   </Button>
                 </Right>
               </ListItem>
@@ -177,9 +177,11 @@ const styles = StyleSheet.create({
     fontSize: 16,
     alignSelf: 'flex-start',
   },
-  details_btn: {
-    fontSize: 12, 
-    color: '#1EB574'
+  detail_btn_text: {
+    fontSize: 10, 
+    color: '#1EB574',
+    // borderColor: 'black',
+    // borderWidth: 1,
   },
   title_date: {
     flex: 1,
@@ -191,6 +193,16 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
     fontSize: 10,
     color: 'grey'
+  },
+  btn_detail: {
+    // borderColor: 'black',
+    // borderWidth: 1,
+    width: 100,
+    paddingRight: 0,
+    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'flex-end',
+    justifyContent: 'center'
   }
 });
 
