@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import { Image, StyleSheet, TouchableOpacity, View, Text } from 'react-native';
 
+// graphql imports
+import { gql } from "apollo-boost";
+import { Query } from "react-apollo";
+import { Mutation } from "react-apollo";
+
 export default class LoginSignin extends Component {
   constructor(props) {
     super(props);
@@ -9,6 +14,18 @@ export default class LoginSignin extends Component {
   }
 
   render() {
+      let query = gql`
+        {
+            users(count: 4){
+                data{
+                    lastname
+                    firstname
+                    email
+                }
+            }
+        }
+      `;
+      
     return (
       <View style={styles.LoginSigninContainer}>
         <View style={{alignItems: 'center', paddingBottom: 250}}>
@@ -16,6 +33,7 @@ export default class LoginSignin extends Component {
             <Text style={styles.logo_name}> QuVendi </Text>
         </View>
         <View >
+            
             <TouchableOpacity
                 style={styles.buttonStyle}
                 activeOpacity = { .5 }
@@ -32,7 +50,6 @@ export default class LoginSignin extends Component {
                 <Text style={styles.q_text}> Sign in </Text>
             </TouchableOpacity>
    
-            
         </View>
       </View>
     );

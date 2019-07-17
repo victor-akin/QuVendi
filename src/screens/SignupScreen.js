@@ -2,19 +2,24 @@ import React, { Component } from 'react';
 import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native';
 import { Container, Content, Form, Item, Input, Label, Icon, Radio } from 'native-base';
 
-export default class SignupScren extends Component {
+// graphql imports
+import { gql } from "apollo-boost";
+import { Query } from "react-apollo";
+import { Mutation } from "react-apollo";
+
+export default class SignupScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
       rememberMe: true,
-      fullname: '',
-      username: '',
+      lastname: '',
+      firstname: '',
       email: '',
       phone_no: '',
       password: '',
       confirm_password: '',
-      fullname_isValid: false,
-      username_isValid: false,
+      lastname_isValid: false,
+      firstname_isValid: false,
       email_isValid: false,
       phone_no_isValid: false,
       password_isValid: false,
@@ -29,7 +34,7 @@ export default class SignupScren extends Component {
   }
 
   validate(value, field) {
-    if( (field === "fullname") || (field === "username") || (field === "email") || (field === "phone_no") ||
+    if( (field === "lastname") || (field === "firstname") || (field === "email") || (field === "phone_no") ||
         (field === "password") ) {
           if(value === "") return false;
           return true;
@@ -51,14 +56,25 @@ export default class SignupScren extends Component {
   }
 
   allFieldsAreValid() {
-    if( this.state.fullname_isValid && this.state.username_isValid && this.state.email_isValid &&
+    if( this.state.lastname_isValid && this.state.firstname_isValid && this.state.email_isValid &&
         this.state.password_isValid && this.state.phone_no_isValid ){
           return true;
-    } 
+    }
     return false;
   }
 
   handleSubmit() {
+
+    let mutation_query = gql`
+      mutation register($lastname: String!, $firstname: String!, $email: String!, $phome_no: String!, $password: String!){
+        signup(lastname: $lastname, firstname: $firstname, email: $email, phone_no: $phone_no, password: $password){
+          lastname
+          firstname
+          email
+        }
+      }
+    `;
+
     if(this.allFieldsAreValid()) {
       this.props.navigation.navigate('ConfirmScreen');
     } else{
@@ -67,70 +83,100 @@ export default class SignupScren extends Component {
   }
 
   render() {
+
+    let mutation_query = gql`
+      mutation register($lastname: String!, $firstname: String!, $email: String!, $phone_no: String!, $password: String!){
+        signup(lastname: $lastname, firstname: $firstname, email: $email, phone_no: $phone_no, password: $password){
+          lastname
+          firstname
+          email
+        }
+      }
+    `;
+
     return (
       <Container>
         <Content >
-          <Form style={styles.loginForm}>
-          
-            <View style={{alignItems: 'center'}}>
-              <Image source={require('../assets/imgs/logo-green.png')} />
-              <Text style={styles.logo_name}> QuVendi </Text>
-            </View>
-            
-            <Item success floatingLabel>
-              <Label style={styles.label}>fullname</Label>
-              <Input onChange={(event) => this.handleChange(event, 'fullname')} />
-              { this.state.fullname_isValid ? <Icon name='ios-checkmark-circle' style={styles.ok}/> : <Icon name='ios-brush' style={styles.edit}/>}
-            </Item>
-            
-            <Item success floatingLabel>
-              <Label style={styles.label}>username</Label>
-              <Input onChange={(event) => this.handleChange(event, 'username')}/>
-              { this.state.username_isValid ? <Icon name='ios-checkmark-circle' style={styles.ok}/> : <Icon name='ios-brush' style={styles.edit}/>}
-            </Item>
-           
-            <Item success floatingLabel>
-              <Label style={styles.label}>email</Label>
-              <Input onChange={(event) => this.handleChange(event, 'email')}/>
-              { this.state.email_isValid ? <Icon name='ios-checkmark-circle' style={styles.ok}/> : <Icon name='ios-brush' style={styles.edit}/>}
-            </Item>
-           
-            <Item success floatingLabel>
-              <Label style={styles.label}>phone no</Label>
-              <Input 
-                onChange={(event) => this.handleChange(event, 'phone_no')}
-                keyboardType="numeric"
-              />
-              { this.state.phone_no_isValid ? <Icon name='ios-checkmark-circle' style={styles.ok}/> : <Icon name='ios-brush' style={styles.edit}/>}
-              
-            </Item>
-           
-            <Item success floatingLabel>
-              <Label style={styles.label}>password</Label>
-              <Input onChange={(event) => this.handleChange(event, 'password')}/>
-              { this.state.password_isValid ? <Icon name='ios-checkmark-circle' style={styles.ok}/> : <Icon name='ios-brush' style={styles.edit}/>}
+          <Mutation mutation={mutation_query}>
+            {(register, { data }) => (
 
-            </Item>
+            <Form style={styles.loginForm}>
             
-            <Item success floatingLabel>
-              <Label style={styles.label}>confirm password</Label>
-              <Input onChange={(event) => this.handleChange(event, 'confirm_password')}/>
+              <View style={{alignItems: 'center'}}>
+                <Image source={require('../assets/imgs/logo-green.png')} />
+                <Text style={styles.logo_name}> QuVendi </Text>
+              </View>
               
-            </Item>
-
-            <Text style={styles.conditions}>
-              By tapping on 'CREATE' you agree to the terms and conditions of use and privacy policy.
-            </Text>
+              <Item success floatingLabel>
+                <Label style={styles.label}>lastname</Label>
+                <Input onChange={(event) => this.handleChange(event, 'lastname')} />
+                { this.state.lastname_isValid ? <Icon name='ios-checkmark-circle' style={styles.ok}/> : <Icon name='ios-brush' style={styles.edit}/>}
+              </Item>
+              
+              <Item success floatingLabel>
+                <Label style={styles.label}>firstname</Label>
+                <Input onChange={(event) => this.handleChange(event, 'firstname')}/>
+                { this.state.firstname_isValid ? <Icon name='ios-checkmark-circle' style={styles.ok}/> : <Icon name='ios-brush' style={styles.edit}/>}
+              </Item>
             
-            <TouchableOpacity
-              style={styles.buttonStyle}
-              activeOpacity = { .5 }
-              onPress={() => this.handleSubmit()}
-            >
-              <Text style={{color:'white'}}> CREATE </Text>
-            </TouchableOpacity>
-          
-          </Form>
+              <Item success floatingLabel>
+                <Label style={styles.label}>email</Label>
+                <Input onChange={(event) => this.handleChange(event, 'email')}/>
+                { this.state.email_isValid ? <Icon name='ios-checkmark-circle' style={styles.ok}/> : <Icon name='ios-brush' style={styles.edit}/>}
+              </Item>
+            
+              <Item success floatingLabel>
+                <Label style={styles.label}>phone no</Label>
+                <Input 
+                  onChange={(event) => this.handleChange(event, 'phone_no')}
+                  keyboardType="numeric"
+                />
+                { this.state.phone_no_isValid ? <Icon name='ios-checkmark-circle' style={styles.ok}/> : <Icon name='ios-brush' style={styles.edit}/>}
+                
+              </Item>
+            
+              <Item success floatingLabel>
+                <Label style={styles.label}>password</Label>
+                <Input onChange={(event) => this.handleChange(event, 'password')}/>
+                { this.state.password_isValid ? <Icon name='ios-checkmark-circle' style={styles.ok}/> : <Icon name='ios-brush' style={styles.edit}/>}
+
+              </Item>
+              
+              <Item success floatingLabel>
+                <Label style={styles.label}>confirm password</Label>
+                <Input onChange={(event) => this.handleChange(event, 'confirm_password')}/>
+                
+              </Item>
+
+              <Text style={styles.conditions}>
+                By tapping on 'CREATE' you agree to the terms and conditions of use and privacy policy.
+              </Text>
+              
+              <TouchableOpacity
+                style={styles.buttonStyle}
+                activeOpacity = { .5 }
+                onPress={() => register(
+                  {
+                    variables: {
+                      lastname: this.state.lastname,
+                      firstname: this.state.firstname,
+                      email: this.state.email,
+                      phone_no: this.state.phone_no,
+                      password: this.state.password
+                    }
+                  }
+                )
+              .then(d => console.log(d))
+              .catch(e => console.log(e))}
+              >
+                <Text style={{color:'white'}}> CREATE </Text>
+              </TouchableOpacity>
+            
+              {console.log(data)}
+            </Form>
+          )}
+          </Mutation>
+
         </Content>
       </Container>
     );

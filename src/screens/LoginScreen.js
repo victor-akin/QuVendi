@@ -53,7 +53,7 @@ export default class LoginScreen extends Component {
                     </Item>
                     <Item success floatingLabel>
                         <Label style={styles.label}>password</Label>
-                        <Input onChange={(event) => this.handleChange(event, 'password')} />
+                        <Input secureTextEntry={true} onChange={(event) => this.handleChange(event, 'password')} />
                     </Item>
                     <View style={styles.rem_forgot}>
                         <View style={styles.rememberMe_text}>
@@ -64,7 +64,7 @@ export default class LoginScreen extends Component {
                                 onPress={this.handleRememberMe}
                             />
                             <Text 
-                                style={{paddingLeft: 7}} 
+                                style={{paddingLeft: 7}}
                                 onPress={this.handleRememberMe}
                             >
                                 Remember Me

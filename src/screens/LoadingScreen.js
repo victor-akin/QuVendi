@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import ReactTimeout from 'react-timeout';
 import { ImageBackground, StyleSheet, ActivityIndicator, Image } from 'react-native';
-import { View } from 'native-base';
+import { View, Text } from 'native-base';
+
 
 class LoadingScreen extends Component {
   constructor(props) {
@@ -24,7 +25,8 @@ class LoadingScreen extends Component {
         <Image source={require('../assets/imgs/logo-white.png')} />
         <View style={{paddingTop: 30}}>
             <ActivityIndicator size="small" color="#ffffff" />
-        </View>
+        </View>  
+
       </ImageBackground>
     );
   }
