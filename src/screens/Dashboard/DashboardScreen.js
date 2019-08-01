@@ -3,9 +3,6 @@ import { StyleSheet, Dimensions, ScrollView, View, Text } from 'react-native';
 import { BarChart } from 'react-native-chart-kit';
 import { Container, Card, CardItem, Body } from 'native-base';
 
-// redux imports
-import { connect } from 'react-redux';
-import { changeText } from "../../actions/exampleAction";
 
 const screenWidth = (Dimensions.get('window').width)*1.5;
 
@@ -167,21 +164,6 @@ const styles = StyleSheet.create(
 );
 
 
-const mapStateToProps = (state) => {
-  const { testRedux } = state.testRedux
-  return { testRdx: testRedux };
-};
 
-const actionCreators = {
-  changeTxt: changeText
-}
-
-// const mapDispatchToProps = (dispatch) => ({
-//   changeTxt: () => dispatch({type:"CHANGE_TEXT", data:"changing the text"})
-// })
-
-
-
-export default connect(mapStateToProps, actionCreators)(DashboardScreen);
-// export default connect(mapStateToProps, mapDispatchToProps)(DashboardScreen);
+export default DashboardScreen;
 

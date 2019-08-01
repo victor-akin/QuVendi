@@ -1,7 +1,7 @@
 import { CHANGE_TEXT } from './types'
 
-
-export function changeText () {
+let data = 'change test data'; 
+export function changeText(data) {
   return {
     type: CHANGE_TEXT,
     data: 'change test data'

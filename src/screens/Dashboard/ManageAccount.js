@@ -2,9 +2,6 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { Container, Content, Form, Item, Input, Label, Icon } from 'native-base';
 
-// redux imports
-import { connect } from 'react-redux';
-
 
 class ManageAccount extends Component {
   constructor(props) {
@@ -130,10 +127,6 @@ const styles = StyleSheet.create({
 });
 
 
-const mapStateToProps = (state) => {
-    const txt = state.testRedux;
-    return {txt};
-};
 
-export default connect(mapStateToProps)(ManageAccount)
+export default ManageAccount
 

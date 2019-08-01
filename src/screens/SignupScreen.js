@@ -3,9 +3,10 @@ import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native';
 import { Container, Content, Form, Item, Input, Label, Icon, Radio } from 'native-base';
 
 // graphql imports
-import { gql } from "apollo-boost";
-import { Query } from "react-apollo";
 import { Mutation } from "react-apollo";
+
+// queries and mutations
+import { SIGNUP_MUTATION } from "../queries/mutations";
 
 export default class SignupScreen extends Component {
   constructor(props) {
@@ -56,7 +57,8 @@ export default class SignupScreen extends Component {
   }
 
   allFieldsAreValid() {
-    if( this.state.lastname_isValid && this.state.firstname_isValid && this.state.email_isValid &&
+    if( this.state.lastname_isValid && this.state.firstname_isValid && 
+        this.state.email_isValid && this.state.phone_no_isValid &&
         this.state.password_isValid && this.state.phone_no_isValid ){
           return true;
     }
@@ -64,40 +66,15 @@ export default class SignupScreen extends Component {
   }
 
   handleSubmit() {
-
-    let mutation_query = gql`
-      mutation register($lastname: String!, $firstname: String!, $email: String!, $phome_no: String!, $password: String!){
-        signup(lastname: $lastname, firstname: $firstname, email: $email, phone_no: $phone_no, password: $password){
-          lastname
-          firstname
-          email
-        }
-      }
-    `;
-
-    if(this.allFieldsAreValid()) {
-      this.props.navigation.navigate('ConfirmScreen');
-    } else{
-      alert("Wrong details")
-    }
+    this.props.navigation.navigate('DashboardTabNavigator');
   }
 
   render() {
 
-    let mutation_query = gql`
-      mutation register($lastname: String!, $firstname: String!, $email: String!, $phone_no: String!, $password: String!){
-        signup(lastname: $lastname, firstname: $firstname, email: $email, phone_no: $phone_no, password: $password){
-          lastname
-          firstname
-          email
-        }
-      }
-    `;
-
     return (
       <Container>
         <Content >
-          <Mutation mutation={mutation_query}>
+          <Mutation mutation={SIGNUP_MUTATION}>
             {(register, { data }) => (
 
             <Form style={styles.loginForm}>
@@ -121,7 +98,7 @@ export default class SignupScreen extends Component {
             
               <Item success floatingLabel>
                 <Label style={styles.label}>email</Label>
-                <Input onChange={(event) => this.handleChange(event, 'email')}/>
+                <Input textContentType='emailAddress' onChange={(event) => this.handleChange(event, 'email')}/>
                 { this.state.email_isValid ? <Icon name='ios-checkmark-circle' style={styles.ok}/> : <Icon name='ios-brush' style={styles.edit}/>}
               </Item>
             
@@ -137,14 +114,14 @@ export default class SignupScreen extends Component {
             
               <Item success floatingLabel>
                 <Label style={styles.label}>password</Label>
-                <Input onChange={(event) => this.handleChange(event, 'password')}/>
+                <Input secureTextEntry={true} onChange={(event) => this.handleChange(event, 'password')}/>
                 { this.state.password_isValid ? <Icon name='ios-checkmark-circle' style={styles.ok}/> : <Icon name='ios-brush' style={styles.edit}/>}
 
               </Item>
               
               <Item success floatingLabel>
                 <Label style={styles.label}>confirm password</Label>
-                <Input onChange={(event) => this.handleChange(event, 'confirm_password')}/>
+                <Input secureTextEntry={true} onChange={(event) => this.handleChange(event, 'confirm_password')}/>
                 
               </Item>
 
@@ -155,6 +132,7 @@ export default class SignupScreen extends Component {
               <TouchableOpacity
                 style={styles.buttonStyle}
                 activeOpacity = { .5 }
+                disabled = {this.allFieldsAreValid()}
                 onPress={() => register(
                   {
                     variables: {
@@ -166,13 +144,17 @@ export default class SignupScreen extends Component {
                     }
                   }
                 )
-              .then(d => console.log(d))
-              .catch(e => console.log(e))}
+              .then(data => {
+                // put returned data in cache
+                this.handleSubmit()
+              })
+              .catch(e => {
+                // handle graphql errors
+                alert('Error on signup. Try different email');
+              })}
               >
                 <Text style={{color:'white'}}> CREATE </Text>
               </TouchableOpacity>
-            
-              {console.log(data)}
             </Form>
           )}
           </Mutation>

@@ -1,38 +1,28 @@
 import React, { Component } from 'react';
 import { Image, StyleSheet, TouchableOpacity, View, Text } from 'react-native';
+import { withApollo } from 'react-apollo';
+import AsyncStorage from '@react-native-community/async-storage';
+import { Query, Mutation } from 'react-apollo';
+import gql from 'graphql-tag';
 
-// graphql imports
-import { gql } from "apollo-boost";
-import { Query } from "react-apollo";
-import { Mutation } from "react-apollo";
+import { AUTH_QUERY } from '../queries/query';
 
-export default class LoginSignin extends Component {
+class LoginSignin extends Component {
   constructor(props) {
     super(props);
     this.state = {
+        testEmail: null
     };
   }
 
   render() {
-      let query = gql`
-        {
-            users(count: 4){
-                data{
-                    lastname
-                    firstname
-                    email
-                }
-            }
-        }
-      `;
-      
     return (
       <View style={styles.LoginSigninContainer}>
         <View style={{alignItems: 'center', paddingBottom: 250}}>
             <Image source={require('../assets/imgs/logo-green.png')} />
             <Text style={styles.logo_name}> QuVendi </Text>
         </View>
-        <View >
+        <View>
             
             <TouchableOpacity
                 style={styles.buttonStyle}
@@ -49,13 +39,23 @@ export default class LoginSignin extends Component {
             >
                 <Text style={styles.q_text}> Sign in </Text>
             </TouchableOpacity>
-   
+
+            {/* <Query query={AUTH_QUERY}>
+                {({loading, error, data}) => {
+                    if(loading) return <Text>Authorizing...</Text>
+                    if(error) return <Text>Error</Text>
+                    console.log(data)
+                    return <Text>authorized</Text>
+                }}
+            </Query> */}
+
         </View>
       </View>
     );
   }
 }
 
+export default withApollo(LoginSignin);
 
 const styles = StyleSheet.create({
     LoginSigninContainer:{

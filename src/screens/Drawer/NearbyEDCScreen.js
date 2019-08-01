@@ -3,7 +3,7 @@ import { View, StyleSheet} from "react-native";
 import { Container, Content, Text, Body, Left, Right, Header, Title, Button, Icon } from 'native-base';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 
-class  NearbyEDCScreen extends Component {
+class NearbyEDCScreen extends Component {
     render() {
         return (
             <Container>

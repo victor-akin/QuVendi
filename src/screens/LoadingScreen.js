@@ -2,20 +2,36 @@ import React, { Component } from 'react';
 import ReactTimeout from 'react-timeout';
 import { ImageBackground, StyleSheet, ActivityIndicator, Image } from 'react-native';
 import { View, Text } from 'native-base';
-
+import { withApollo } from 'react-apollo';
+import gql from 'graphql-tag';
 
 class LoadingScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      loggedIn: false,
     };
+
+
   }
 
   componentDidMount() {
+    
+    const loggedIn = this.props.client.readQuery({
+      query: gql`
+        query loggedIn{
+          isLoggedIn
+        }
+      `
+    })
+
     this.props.setTimeout(() => {
+      if(loggedIn.isLoggedIn) {
+        this.props.navigation.navigate('DashboardTabNavigator')
+      } else {
         this.props.navigation.navigate('LoginSignin')
-        // this.props.navigation.navigate('Manage Account')
-    }, 500)
+      }
+    }, 500);
   }
 
   render() {
@@ -25,14 +41,14 @@ class LoadingScreen extends Component {
         <Image source={require('../assets/imgs/logo-white.png')} />
         <View style={{paddingTop: 30}}>
             <ActivityIndicator size="small" color="#ffffff" />
-        </View>  
-
+        </View>
       </ImageBackground>
-    );
+    )
+
   }
 }
 
-export default ReactTimeout(LoadingScreen);
+export default ReactTimeout( withApollo(LoadingScreen) );
 
 const styles = StyleSheet.create({
     loadingContainer:{
