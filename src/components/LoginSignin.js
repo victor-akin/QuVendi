@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { Image, StyleSheet, TouchableOpacity, View, Text } from 'react-native';
 import { withApollo } from 'react-apollo';
-import AsyncStorage from '@react-native-community/async-storage';
-import { Query, Mutation } from 'react-apollo';
-import gql from 'graphql-tag';
+import { Query } from 'react-apollo';
 
 import { AUTH_QUERY } from '../queries/query';
 

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native';
 import { Container, Content, Form, Item, Input, Label, Icon, Radio } from 'native-base';
 import AsyncStorage from '@react-native-community/async-storage';
-import { QUVENDI_LOCAL_STORAGE } from '../../appConfig';
+import { withApollo } from 'react-apollo';
 
 // graphql imports
 import { Mutation } from 'react-apollo';
@@ -10,7 +10,7 @@ import { Mutation } from 'react-apollo';
 // queries and mutations
 import { LOGIN_MUTATION } from '../queries/mutations';
 
-export default class LoginScreen extends Component {
+class LoginScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -40,19 +40,25 @@ export default class LoginScreen extends Component {
   }
 
   persistData(data) {
-      console.log(data)
       
     let persist_user_login = async (data) => {
        
         try {
-            let {access_token, expires_in, refresh_token} = {...data.data.login};
+            let {access_token, refresh_token, user_uid} = {...data.data.login, ...data.data.login.user};
             await AsyncStorage.multiSet(
                 [
+                    ['user_uid', user_uid],
                     ['access_token', access_token.toString()], 
                     ['refresh_token', refresh_token.toString()]
                 ]
             );
-            // console.log(AsyncStorage.clear())
+            // write data to cache
+            this.props.client.writeData({
+                data:{
+                    user_uid,
+                    access_token,
+                }
+            })
 
             this.setState({login_failed: false})
             this.toDashboard()
@@ -194,4 +200,4 @@ const styles = StyleSheet.create({
   });
 
 
-
+export default withApollo(LoginScreen);

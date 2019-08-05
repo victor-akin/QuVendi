@@ -21,6 +21,7 @@ import ConfirmScreen from '../screens/ConfirmScreen';
 // drawer screen imports
 import NotificationsScreen from '../screens/Drawer/NotificationsScreen';
 import ContactUsScreen from '../screens/Drawer/ContactUsScreen';
+import LogoutScreen from '../screens/Drawer/LogoutScreen';
 import NearbyEDCScreen from '../screens/Drawer/NearbyEDCScreen';
 import SettingsScreen from '../screens/Drawer/SettingsScreen';
 
@@ -129,6 +130,7 @@ const AppDrawerNavigator = createDrawerNavigator(
         Home: DashboardStackNavigator,
         Notifications: NotificationsScreen,
         "Contact us": ContactUsScreen,
+        Logout: LogoutScreen,
         // "Nearby EDC": NearbyEDCScreen,
     },
     {
@@ -145,6 +147,8 @@ const AppDrawerNavigator = createDrawerNavigator(
                         DI = <Ionicons name='ios-pulse' style={{fontSize: 20, color: tintColor}} />
                     } else if(routeName === 'Contact us') {
                         DI = <Ionicons name='ios-business' style={{fontSize: 20, color: tintColor}} />
+                    } else if(routeName === 'Logout') {
+                        DI = <Ionicons name='ios-power' style={{fontSize: 20, color: tintColor}} />
                     }
                     return DI
                 }

@@ -36,7 +36,8 @@ export const client = AsyncStorage.getItem('access_token')
 
       cache.writeData({
           data: {
-            isLoggedIn: true
+            isLoggedIn: true,
+            // dataFromClient: null
           }
       })
 
@@ -44,9 +45,9 @@ export const client = AsyncStorage.getItem('access_token')
           cache,
           link,
           typeDefs,
-          resolvers
+          resolvers,
       })
-
+      
       return clientObject
   })
   .catch(err => {
@@ -56,7 +57,7 @@ export const client = AsyncStorage.getItem('access_token')
         cache,
         link: authlink,
         typeDefs,
-        resolvers
+        resolvers,
     })
       
     return emptyClient

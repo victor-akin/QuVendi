@@ -3,6 +3,11 @@ import { StyleSheet, Dimensions, ScrollView, View, Text } from 'react-native';
 import { BarChart } from 'react-native-chart-kit';
 import { Container, Card, CardItem, Body } from 'native-base';
 
+import { gql } from "apollo-boost";
+import { Query } from 'react-apollo';
+
+import { TRANSACTIONS_QUERY } from '../../queries/query';
+import { AUTH_QUERY } from '../../queries/query';
 
 const screenWidth = (Dimensions.get('window').width)*1.5;
 
@@ -13,7 +18,6 @@ class DashboardScreen extends Component {
       
     };
 
-    this.updateStore = this.updateStore.bind(this);
   }
 
   componentDidMount() {
@@ -21,13 +25,8 @@ class DashboardScreen extends Component {
     // this.props.navigation.navigate("Nearby EDC");
   }
 
-  updateStore() {
-    // this.props.testDispatch()
-    // changeText()
-    // alert(this.props.testText)
-  }
-
   render() {
+
     return (
       <ScrollView style={{paddingLeft: 5, paddingRight: 5}}>
       <View style={styles.dashboardContainer}>
@@ -117,12 +116,19 @@ class DashboardScreen extends Component {
               <Text>Manage Account</Text>
             </CardItem>
           </Card>
-         
-          {/* <Text onPress={() => this.props.changeTxt()}>
-            {this.props.testRdx}
-          </Text> */}
-        
+
         </View>
+        
+        <Query query={TRANSACTIONS_QUERY}>
+          {({loading, error, data}) => {
+            if(loading) return <Text>loading...</Text>
+            if(error) return <Text>error...</Text>
+            
+            console.log(data)
+            return <Text>got data</Text>
+          }}
+        </Query>
+
       </View>
       </ScrollView>
     );
