@@ -1,14 +1,18 @@
 import React, { Component } from 'react';
+import { withApollo } from 'react-apollo';
 import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native';
 import { Container, Content, Form, Item, Input, Label, Icon, Radio } from 'native-base';
+import AsyncStorage from '@react-native-community/async-storage';
 
 // graphql imports
 import { Mutation } from "react-apollo";
 
 // queries and mutations
 import { SIGNUP_MUTATION } from "../queries/mutations";
+import { LOGIN_MUTATION } from "../queries/mutations";
 
-export default class SignupScreen extends Component {
+
+class SignupScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -25,12 +29,12 @@ export default class SignupScreen extends Component {
       phone_no_isValid: false,
       password_isValid: false,
       confirm_password_isValid: false,
-
+      loading: false,
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.validate = this.validate.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.autoLogin = this.autoLogin.bind(this);
     this.allFieldsAreValid = this.allFieldsAreValid.bind(this);
   }
 
@@ -65,8 +69,39 @@ export default class SignupScreen extends Component {
     return false;
   }
 
-  handleSubmit() {
-    this.props.navigation.navigate('DashboardTabNavigator');
+  autoLogin() {
+    // handle auto login for tokens
+    this.props.client.mutate({
+      mutation: LOGIN_MUTATION,
+      variables: {
+        data: {
+          username: this.state.email,
+          password: this.state.password
+        }
+      }
+    })
+    .then(data => {
+      let {access_token, user_uid} = {...data.data.login, ...data.data.login.user};
+
+      AsyncStorage.multiSet(
+        [
+            ['user_uid', user_uid],
+            ['access_token', access_token.toString()]
+        ]
+      )
+      .then(data => {
+        // async storage write was successful
+        this.props.navigation.navigate('DashboardTabNavigator');
+      })
+      .catch(err => {
+        // error writing to asynstorage
+        this.setState({loading: false});
+      })
+    })
+    .catch(err => {
+      // error from login query
+      this.setState({loading: false});
+    })
   }
 
   render() {
@@ -75,7 +110,7 @@ export default class SignupScreen extends Component {
       <Container>
         <Content >
           <Mutation mutation={SIGNUP_MUTATION}>
-            {(register, { data }) => (
+            {(signup, { data }) => (
 
             <Form style={styles.loginForm}>
             
@@ -86,7 +121,7 @@ export default class SignupScreen extends Component {
               
               <Item success floatingLabel>
                 <Label style={styles.label}>lastname</Label>
-                <Input onChange={(event) => this.handleChange(event, 'lastname')} />
+                <Input onChange={(event) => this.handleChange(event, 'lastname')}/>
                 { this.state.lastname_isValid ? <Icon name='ios-checkmark-circle' style={styles.ok}/> : <Icon name='ios-brush' style={styles.edit}/>}
               </Item>
               
@@ -121,7 +156,7 @@ export default class SignupScreen extends Component {
               
               <Item success floatingLabel>
                 <Label style={styles.label}>confirm password</Label>
-                <Input secureTextEntry={true} onChange={(event) => this.handleChange(event, 'confirm_password')}/>
+                <Input secureTextEntry={true} onChange={(event) => this.handleChange(event, 'confirm_password')} password/>
                 
               </Item>
 
@@ -132,28 +167,33 @@ export default class SignupScreen extends Component {
               <TouchableOpacity
                 style={styles.buttonStyle}
                 activeOpacity = { .5 }
-                disabled = {this.allFieldsAreValid()}
-                onPress={() => register(
-                  {
-                    variables: {
-                      lastname: this.state.lastname,
-                      firstname: this.state.firstname,
-                      email: this.state.email,
-                      phone_no: this.state.phone_no,
-                      password: this.state.password
-                    }
+                disabled = {this.state.loading}
+                onPress={() => {
+                  if(this.allFieldsAreValid()) {
+
+                    this.setState({loading: true});
+
+                    signup({
+                      variables: {
+                        lastname: this.state.lastname,
+                        firstname: this.state.firstname,
+                        email: this.state.email,
+                        phone_no: this.state.phone_no,
+                        password: this.state.password
+                      }
+                    })
+                    .then(data => {
+                      this.autoLogin()
+                    })
+                    .catch(e => {
+                      // handle graphql errors
+                      this.setState({loading: false});
+                      alert('Error on signup. Try different email');
+                    })
                   }
-                )
-              .then(data => {
-                // put returned data in cache
-                this.handleSubmit()
-              })
-              .catch(e => {
-                // handle graphql errors
-                alert('Error on signup. Try different email');
-              })}
+                }}
               >
-                <Text style={{color:'white'}}> CREATE </Text>
+                <Text style={{color:'white'}}> { this.state.loading ? 'LOADING...' : 'CREATE' } </Text>
               </TouchableOpacity>
             </Form>
           )}
@@ -206,5 +246,7 @@ const styles = StyleSheet.create({
   }
 });
 
+
+export default withApollo(SignupScreen);
 
 

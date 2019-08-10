@@ -44,12 +44,11 @@ class LoginScreen extends Component {
     let persist_user_login = async (data) => {
        
         try {
-            let {access_token, refresh_token, user_uid} = {...data.data.login, ...data.data.login.user};
+            let {access_token, user_uid} = {...data.data.login, ...data.data.login.user};
             await AsyncStorage.multiSet(
                 [
                     ['user_uid', user_uid],
-                    ['access_token', access_token.toString()], 
-                    ['refresh_token', refresh_token.toString()]
+                    ['access_token', access_token.toString()]
                 ]
             );
             // write data to cache
@@ -126,7 +125,7 @@ class LoginScreen extends Component {
                                 style={styles.buttonStyle}
                                 activeOpacity = { .5 }
                                 onPress={() => login(
-                                    {
+                                    {   
                                         variables: {
                                             data: {
                                                 username: this.state.loginName,
@@ -140,7 +139,8 @@ class LoginScreen extends Component {
                                     this.persistData(data)
                                 })
                                 .catch(e => {
-                                    // if there is an arror with credentials
+                                    // if there is an error with credentials
+                                    alert('Invalid login details.')
                                     console.log(e.message)
                                 })}
                             >

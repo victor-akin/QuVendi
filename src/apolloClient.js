@@ -9,7 +9,7 @@ import { access_token_storage } from './utils'
 
 const cache = new InMemoryCache();
 
-const authlink = createHttpLink({uri: QUVENDI_LOCAL}) 
+const authlink = createHttpLink({uri: QUVENDI_HEROKU}) 
 
 // initial cache state
 cache.writeData({

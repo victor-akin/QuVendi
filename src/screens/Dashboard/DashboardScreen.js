@@ -119,7 +119,7 @@ class DashboardScreen extends Component {
 
         </View>
         
-        <Query query={TRANSACTIONS_QUERY}>
+        {/* <Query query={TRANSACTIONS_QUERY}>
           {({loading, error, data}) => {
             if(loading) return <Text>loading...</Text>
             if(error) return <Text>error...</Text>
@@ -127,7 +127,7 @@ class DashboardScreen extends Component {
             console.log(data)
             return <Text>got data</Text>
           }}
-        </Query>
+        </Query> */}
 
       </View>
       </ScrollView>
